@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komoditas Ikan Wajib Periksa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #eaf6f9;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(to right, #0077b6, #00b4d8);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #search {
+            width: 80%;
+            display: block;
+            margin: 20px auto;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #00b4d8;
+            border-radius: 25px;
+            outline: none;
+            transition: 0.3s;
+        }
+        #search:focus {
+            border-color: #0077b6;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 250px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #0077b6;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Komoditas Ikan Wajib Periksa</h1>
+    </header>
+
+    <input type="text" id="search" placeholder="Cari komoditas...">
+
+    <div class="container" id="cardsContainer">
+        <!-- Kartu ikan akan muncul di sini -->
+    </div>
+
+    <!-- Modal Detail -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <h2 id="modalTitle"></h2>
+            <h4 id="modalSubtitle"></h4>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        const dataKomoditas = [
+            { nama: "Ikan Koi", namaIlmiah: "Cyprinus carpio", keterangan: "Ikan hias populer, sering diperiksa karena risiko penyakit KHV.", gambar: "images/koi.jpg" },
+            { nama: "Ikan Nila", namaIlmiah: "Oreochromis niloticus", keterangan: "Komoditas budidaya penting, rentan penyakit Streptococcosis.", gambar: "images/nila.jpg" },
+            { nama: "Ikan Mas", namaIlmiah: "Cyprinus carpio", keterangan: "Komoditas konsumsi dan hias, diperiksa rutin.", gambar: "images/mas.jpg" },
+            { nama: "Ikan Cupang", namaIlmiah: "Betta splendens", keterangan: "Ikan hias kecil, sering diperiksa saat ekspor.", gambar: "images/cupang.jpg" },
+{ nama: "Ikan Arwana", namaIlmiah: "Scleropages formosus", keterangan: "...", gambar: "images/arwana.jpg" },
+{ nama: "Ikan Gurame", namaIlmiah: "Osphronemus goramy", keterangan: "Ikan konsumsi populer di Asia, wajib diperiksa saat impor dan ekspor", gambar: "images/gurame.jpg" }
+        ];
+
+        function tampilkanKartu(data) {
+            const container = document.getElementById("cardsContainer");
+            container.innerHTML = "";
+            data.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <img src="${item.gambar}" alt="${item.nama}">
+                    <div class="card-body">
+                        <div class="card-title">${item.nama}</div>
+                        <div class="card-subtitle">${item.namaIlmiah}</div>
+                        <div class="card-text">${item.keterangan}</div>
+                    </div>`;
+                card.addEventListener('click', () => bukaModal(item));
+                container.appendChild(card);
+            });
+        }
+
+        function bukaModal(item) {
+            document.getElementById("modalImage").src = item.gambar;
+            document.getElementById("modalTitle").innerText = item.nama;
+            document.getElementById("modalSubtitle").innerText = item.namaIlmiah;
+            document.getElementById("modalText").innerText = item.keterangan;
+            document.getElementById("detailModal").style.display = "flex";
+        }
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('detailModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('detailModal')) {
+                document.getElementById('detailModal').style.display = 'none';
+            }
+        });
+
+        document.getElementById('search').addEventListener('input', function() {
+            const keyword = this.value.toLowerCase();
+            const filtered = dataKomoditas.filter(item =>
+                item.nama.toLowerCase().includes(keyword) ||
+                item.namaIlmiah.toLowerCase().includes(keyword)
+            );
+            tampilkanKartu(filtered);
+        });
+
+        tampilkanKartu(dataKomoditas);
+    </script>
+</body>
+</html>
