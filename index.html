@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Komoditas Ikan Wajib Periksa</title>
     <style>
         body {
@@ -11,7 +11,6 @@
             background-color: #eaf6f9;
             color: #333;
         }
-
         header {
             background: linear-gradient(to right, #0077b6, #00b4d8);
             color: white;
@@ -19,7 +18,6 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
         #search {
             width: 80%;
             display: block;
@@ -28,13 +26,7 @@
             font-size: 16px;
             border: 2px solid #00b4d8;
             border-radius: 25px;
-            outline: none;
-            transition: 0.3s;
         }
-        #search:focus {
-            border-color: #0077b6;
-        }
-
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -42,50 +34,42 @@
             padding: 20px;
             gap: 20px;
         }
-
         .card {
             background: white;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 250px;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: 0.2s;
             cursor: pointer;
         }
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
         .card img {
             width: 100%;
             height: 160px;
             object-fit: cover;
         }
-
         .card-body {
             padding: 15px;
             text-align: center;
         }
-
         .card-title {
             font-weight: bold;
             color: #0077b6;
             margin-bottom: 5px;
         }
-
         .card-subtitle {
             font-style: italic;
             color: #666;
             margin-bottom: 10px;
         }
-
         .card-text {
             font-size: 14px;
             color: #555;
         }
-
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -105,7 +89,6 @@
             width: 90%;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             position: relative;
         }
         .modal-content img {
@@ -119,7 +102,6 @@
             right: 15px;
             font-size: 24px;
             cursor: pointer;
-            color: #333;
         }
     </style>
 </head>
@@ -130,11 +112,8 @@
 
     <input type="text" id="search" placeholder="Cari komoditas...">
 
-    <div class="container" id="cardsContainer">
-        <!-- Kartu ikan akan muncul di sini -->
-    </div>
+    <div class="container" id="cardsContainer"></div>
 
-    <!-- Modal Detail -->
     <div class="modal" id="detailModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
@@ -151,8 +130,8 @@
             { nama: "Ikan Nila", namaIlmiah: "Oreochromis niloticus", keterangan: "Komoditas budidaya penting, rentan penyakit Streptococcosis.", gambar: "images/nila.jpg" },
             { nama: "Ikan Mas", namaIlmiah: "Cyprinus carpio", keterangan: "Komoditas konsumsi dan hias, diperiksa rutin.", gambar: "images/mas.jpg" },
             { nama: "Ikan Cupang", namaIlmiah: "Betta splendens", keterangan: "Ikan hias kecil, sering diperiksa saat ekspor.", gambar: "images/cupang.jpg" },
-{ nama: "Ikan Arwana", namaIlmiah: "Scleropages formosus", keterangan: "...", gambar: "images/arwana.jpg" },
-{ nama: "Ikan Gurame", namaIlmiah: "Osphronemus goramy", keterangan: "Ikan konsumsi populer di Asia, wajib diperiksa saat impor dan ekspor", gambar: "images/gurame.jpg" }
+            { nama: "Ikan Arwana", namaIlmiah: "Scleropages formosus", keterangan: "...", gambar: "images/arwana.jpg" },
+            { nama: "Ikan Gurame", namaIlmiah: "Osphronemus goramy", keterangan: "Ikan konsumsi populer di Asia, wajib diperiksa saat impor dan ekspor", gambar: "images/gurame.jpg" }
         ];
 
         function tampilkanKartu(data) {
